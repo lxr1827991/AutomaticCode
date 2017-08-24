@@ -1,0 +1,53 @@
+package com.foxtail.service.server;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.foxtail.common.page.Pagination;
+import com.foxtail.dao.mybatis.server.ComplaintDao;
+import com.foxtail.model.server.Complaint;
+
+@Service
+public class ComplaintService {
+	
+	@Autowired
+	ComplaintDao complaintDao;
+	
+	public Pagination queryForPage(Pagination pagination) {
+		 List<Complaint> l = complaintDao.queryForPage(new Complaint(), pagination);
+		 pagination.setList(l);
+		return pagination;
+
+	}
+	
+	
+	public Complaint queryById(String id) {
+		return complaintDao.selectByPrimaryKey(id);
+
+	}
+	
+	
+	public void delete(String[] ids) {
+		
+		complaintDao.delete(ids);
+
+	}
+	
+	public void update(Complaint complaint) {
+	
+		complaintDao.update(complaint);
+
+	}
+	
+	
+	public void save(Complaint complaint) {
+		
+		complaintDao.save(complaint);
+
+	}
+	
+	
+
+}
