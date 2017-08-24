@@ -34,15 +34,6 @@ public class Main {
 	static Context context = null;
 	
 	
-	public static void main(String[] args) throws IOException {
-		
-		Main main = new Main();
-		main.init();
-		
-		//main.templateMapperFile();
-		main.crateDao();
-		System.out.println("ok");
-	}
 	
 	private void init() throws IOException {
 		Properties properties = new Properties();
@@ -63,42 +54,119 @@ public class Main {
 		context.setConfig(map);
 
 	}
-	
-	
-	public void crateDao() throws IOException {
-		Map<String, Object> param = new HashMap<String, Object>();
+	public static void main(String[] args) throws IOException {
 		
-		param.put("package", "com.lxr.acode");
-		param.put("daoName", "MenberDao");
-		String enclass = "com.Menber";
-		param.put("enClass", enclass);
+		Main main = new Main();
+		main.init();
+		
+		String basePath = context.getPropertie("basePath");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		String enclass = "com.foxtail.model.server.Complaint";
 		String enname  = enclass.substring(enclass.lastIndexOf(".")+1);
-		param.put("enName",enname);
+		
+		String daoPkg = "com.foxtail.dao.mybatis.server";
+		String daoclass = daoPkg+"."+enname+"Dao";
+		String daoname  = daoclass.substring(daoclass.lastIndexOf(".")+1);
+		
+		String serPkg = "com.foxtail.service.server";
+		String serclass = serPkg+"."+enname+"Service";
+		String sername = serclass.substring(serclass.lastIndexOf(".")+1);
 		
 		
-		String outPath = template(context.getPropertieFile("mybatis.out.daoPath"), param);
+		map.put("basePath", basePath);
 		
-		output(param, new InputStreamReader(getClass().getResourceAsStream("/template/MenberDao.java"))
+		map.put("enClass", enclass);
+		map.put("enName",new TlBean(enname));
+		
+		map.put("daoPkg", daoPkg);
+		map.put("daoClass", daoclass);
+		map.put("daoName", new TlBean(daoname));
+		
+		map.put("serPkg", serPkg);
+		map.put("serClass", serclass);
+		map.put("serName", new TlBean(sername));
+		
+		
+		String mppath = "com\\foxtail\\mapping\\server\\"+new TlBean(enname).toLowerCaseFirst()+"_mapper.xml";
+		String tbname = "ro_complaint";
+		
+		map.put("mpPath", mppath);
+		map.put("tbName", tbname);
+		
+		
+		String ctlPkg = "com.foxtail.controller.server";
+		String ctlClass = ctlPkg+"."+enname+"Controller";
+		String ctlName  = ctlClass.substring(ctlClass.lastIndexOf(".")+1);
+		map.put("ctlPkg", ctlPkg);
+		map.put("ctlClass", ctlClass);
+		map.put("ctlName", new TlBean(ctlName));
+		
+		//main.crateController(map);
+		main.templateMapperFile(map);
+		//main.crateDao(map);
+		//main.createService(map);
+		System.out.println("ok");
+	}
+	
+
+	public void crateController(Map<String, Object> map) throws IOException {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.putAll(map);
+		
+		String outPath = class2FilePath(param.get("ctlClass").toString(),param.get("basePath").toString());
+		
+		File f = new File(outPath);
+		if(!f.exists()){f.getParentFile().mkdirs();f.createNewFile();}
+			
+		
+		output(param, new InputStreamReader(getClass().getResourceAsStream("/template/Controller.java.tl"))
 				, new FileWriter(outPath));
 
 	}
 	
 	
-	public void templateMapperFile() throws IOException {
-	
-		
+	public void crateDao(Map<String, Object> map) throws IOException {
 		Map<String, Object> param = new HashMap<String, Object>();
+		param.putAll(map);
 		
+		String outPath = class2FilePath(param.get("daoClass").toString(),param.get("basePath").toString());
 		
+		File f = new File(outPath);
+		if(!f.exists()){f.getParentFile().mkdirs();f.createNewFile();}
+			
 		
-		param.put("namespace", "com.");
-		String enclass = "com.nenber";
-		param.put("enClass", enclass);
-		String enname  = enclass.substring(enclass.lastIndexOf(".")+1);
-		param.put("enName",enname);
+		output(param, new InputStreamReader(getClass().getResourceAsStream("/template/MenberDao.java.tl"))
+				, new FileWriter(outPath));
+
+	}
+	
+	private void createService(Map<String, Object> map) throws IOException {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.putAll(map);
 		
+		String outPath = class2FilePath(param.get("serClass").toString(),param.get("basePath").toString());
 		
-		String outPath = context.getPropertieFile("mybatis.out.mapperPath");
+		File f = new File(outPath);
+		if(!f.exists()){f.getParentFile().mkdirs();f.createNewFile();}
+			
+		
+		output(param, new InputStreamReader(getClass().getResourceAsStream("/template/MenberService.java.tl"))
+				, new FileWriter(outPath));
+
+	}
+	
+	
+	public void templateMapperFile(Map<String, Object> map) throws IOException {
+	
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.putAll(map);
+		
+		String outPath =param.get("basePath").toString()+"\\"+param.get("mpPath").toString();
+		
+		File f = new File(outPath);
+		if(!f.exists()){f.getParentFile().mkdirs();f.createNewFile();}
+			
 		
 		output(param, new InputStreamReader(getClass().getResourceAsStream("/template/mybaits_mapper.xml.tl"))
 				, new FileWriter(outPath));
@@ -106,6 +174,11 @@ public class Main {
 	}
 	
 	
+	
+	private String class2FilePath(String cls,String basePath) {
+		return basePath+"\\"+cls.replace(".", "\\")+".java";
+
+	}
 	
 
 	/**

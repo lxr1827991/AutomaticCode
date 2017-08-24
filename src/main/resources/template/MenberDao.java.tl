@@ -1,4 +1,4 @@
-package ${package};
+package ${daoPkg};
 
 import java.util.List;
 
@@ -11,15 +11,15 @@ import ${enClass};
 
 public interface ${daoName} extends BaseMybatisDao<${enName},String>{
 
-	List<Menber> queryForPage(@Param("vo")${enName} ${enName},@Param("page")Pagination page);
+	List<${enName}> queryForPage(@Param("vo")${enName} ${@enName.toLowerCaseFirst()},@Param("page")Pagination page);
 	
 	
 	void delete(@Param("ids")String[] ids);
 	
 	
-	void save(@Param("model")${enName} ${enName});
+	void save(@Param("model")${enName} ${@enName.toLowerCaseFirst()});
 	
-	void update(@Param("model")${enName} ${enName});
+	void update(@Param("model")${enName} ${@enName.toLowerCaseFirst()});
 	
 	
 }
