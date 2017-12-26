@@ -1,11 +1,11 @@
-package com.foxtail.controller.server;
+package ${ctlPkg};
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import com.foxtail.common.page.PaginableFactroy;
 import com.foxtail.common.base.BaseMybatisController;
 import com.foxtail.common.page.Pagination;
 import com.foxtail.common.web.DataGrid;
@@ -14,7 +14,7 @@ import ${enClass};
 import ${serClass};
 
 @Controller
-@RequestMapping("server/${@enName.toLowerCaseFirst()}")
+@RequestMapping("${modular}/${@enName.toLowerCaseFirst()}")
 public class ${ctlName} extends BaseMybatisController{
 	
 	
@@ -25,7 +25,7 @@ public class ${ctlName} extends BaseMybatisController{
 	@RequestMapping("tolist")
 	public String toList() {
 		
-		return "server/${@enName.toLowerCaseFirst()}_tolist";
+		return "${modular}/${@enName.toLowerCaseFirst()}_tolist";
 
 	}
 	
@@ -33,7 +33,7 @@ public class ${ctlName} extends BaseMybatisController{
 	@RequestMapping("toadd")
 	public String toadd() {
 		
-		return "server/${@enName.toLowerCaseFirst()}_toadd";
+		return "${modular}/${@enName.toLowerCaseFirst()}_toadd";
 
 	}
 	
@@ -45,7 +45,7 @@ public class ${ctlName} extends BaseMybatisController{
 		model.put("vo", ${@serName.toLowerCaseFirst()}.queryById(id));
 		
 		
-		return "server/${@enName.toLowerCaseFirst()}_toedit";
+		return "${modular}/${@enName.toLowerCaseFirst()}_toedit";
 
 	}
 	
@@ -55,9 +55,7 @@ public class ${ctlName} extends BaseMybatisController{
 	@RequestMapping("list")
 	@ResponseBody
 	public Object list(Integer limit,Integer offset) {
-		Pagination pagination = new Pagination();
-		pagination.setPageSize(limit);
-		pagination.setOffset(offset);;
+	Pagination pagination = PaginableFactroy.getPagination(offset, limit);
 		
 		pagination = ${@serName.toLowerCaseFirst()}.queryForPage(pagination);
 		DataGrid dataGrid = new DataGrid();
@@ -72,7 +70,7 @@ public class ${ctlName} extends BaseMybatisController{
 	@ResponseBody
 	public Object delete(String ids) {
 	
-		String[] idArray = ids.split(ids);
+		String[] idArray = ids.split(",");
 		
 		${@serName.toLowerCaseFirst()}.delete(idArray);
 		

@@ -1,10 +1,8 @@
 package com.lxr.acode;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.Writer;
@@ -15,7 +13,6 @@ import java.util.Map.Entry;
 import java.util.MissingFormatArgumentException;
 import java.util.Properties;
 import java.util.Set;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.beetl.core.Configuration;
@@ -29,7 +26,7 @@ import org.beetl.core.resource.StringTemplateResourceLoader;
  * @author lxr
  *
  */
-public class Main {
+public class myEmis {
 
 	static Context context = null;
 	
@@ -56,7 +53,7 @@ public class Main {
 	}
 	public static void main(String[] args) throws IOException {
 		
-		Main main = new Main();
+		myEmis main = new myEmis();
 		main.init();
 		
 		String basePath = context.getPropertie("basePath");
@@ -261,3 +258,5 @@ List<String> list = IOUtils.readLines(inStream);
 	}
 	
 }
+
+

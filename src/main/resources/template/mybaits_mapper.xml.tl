@@ -7,7 +7,7 @@
 <parameterMap type="${enClass}" id="pmodel"/>
 
 	<sql id="Base_Column_List">
-		
+		*
 	</sql>
 
 	 <!-- 分页数据 -->    
@@ -18,7 +18,7 @@
   
   
 	<!-- 根据主键获取对象 -->  
-	<select id="selectByPrimaryKey" resultMap="model" parameterType="string" >
+	<select id="selectByPrimaryKey" resultMap="model"  >
 	  select 
 	  <include refid="Base_Column_List" />
 	  from ${tbName}
