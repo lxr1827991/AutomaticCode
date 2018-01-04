@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<basePath>E:\eworkspace\EMIS_MAVEN\src\main\java</basePath>
-<mybatis.out.mapperPath>com\lxr\acode\d.xml</mybatis.out.mapperPath>
-<mybatis.out.daoPath>com\lxr\acode\d.xml</mybatis.out.daoPath>
-mybatis.out.daoPath=\\com\\lxr\\acode\\\\${daoName}.java
-mybatis.in.mapperPath=E:\\eworkspace\\AutomaticCode\\src\\main\\resources\\template\\mybaits_mapper.xml.tl
-
-entityPath=\u3001

@@ -1,0 +1,5 @@
+ `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `applyid` int(11) NOT NULL COMMENT '申请id',
+  `exaid` int(11) NOT NULL COMMENT '审核人id',
+  `exatime` bigint(20) NOT NULL COMMENT '审核时间',
+  `info` varchar(200) DEFAULT '0' COMMENT '详情',
