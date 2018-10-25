@@ -7,6 +7,8 @@ import com.foxtail.bean.ServiceManager;
 import com.foxtail.common.page.Pagination;
 import $#{daoClass};
 import $#{enClass};
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 
 @Service
@@ -39,10 +41,12 @@ public class $#{serName} {
 	}
 	
 	public Pagination findForPage(Pagination page) {
-		
-		List  list = $#{@daoName.toLowerCaseFirst()}.findForPage(page);
-		page.setList(list);
+		PageHelper.startPage(page.getPageNo(), page.getPageSize());
+		Page listCountry  = (Page)$#{@daoName.toLowerCaseFirst()}.findForPage2();
+		page.setTotalCount((int)listCountry.getTotal());
+		page.setList(listCountry.getResult());
 		return page;
+		
 
 	}
 	

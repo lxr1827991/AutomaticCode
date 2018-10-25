@@ -7,7 +7,7 @@
 	</sql>
 
 	  
-	<select id="findForPage" resultType="$#{enClass}" >
+	<select id="findForPage2" resultType="$#{enClass}" >
   		select  <include refid="base_column" /> from $#{tbName} a
   	</select>
   

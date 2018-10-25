@@ -43,9 +43,9 @@ public class $#{ctlName} extends BaseMybatisController{
 	
 	@RequestMapping("view")
 	@ResponseBody
-	public Object view(String type,HttpServletRequest request) {
+	public Object view(String sysType,HttpServletRequest request) {
 		
-		if("info".equals(type))
+		if("info".equals(sysType))
 			return JsonResult.getSuccessResult($#{@serName.toLowerCaseFirst()}.getById(request.getParameter("id")));
 		else 
 		return DataGridResult.getResult($#{@serName.toLowerCaseFirst()}.findForPage(getPagination(request)));

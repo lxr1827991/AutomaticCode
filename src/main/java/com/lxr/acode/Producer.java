@@ -70,10 +70,10 @@ public class Producer {
 			  Scanner scan = new Scanner(System.in);
 			  String read = scan.nextLine();
 			  switch (read) {
-			case "y":
+			case "t":
 				return;
 				
-			case "t":
+			case "y":
 				break;
 
 			default:

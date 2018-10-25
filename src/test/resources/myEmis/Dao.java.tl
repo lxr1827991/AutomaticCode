@@ -13,6 +13,6 @@ public interface $#{daoName} {
 	
 	$#{enName} getById(@Param("id")String id);
 	
-	List<$#{enName}> findForPage(@Param("page")Pagination page);
+	List<$#{enName}> findForPage2();
 }
 

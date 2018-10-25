@@ -28,10 +28,10 @@ public class MyEmis extends Producer{
 		String basePath = myEmis.getVar("basePath");
 		
 	
-		String enname = "Examine";
-		String tbname = "man_examine";
-		String modular = "personnel";
-		String modular2 = "examine";
+		String enname = "ActiveGoods";
+		String tbname = "jrkj_active_goods";
+		String modular = "marketing";
+		String modular2 = "active";
 		
 	
 		
